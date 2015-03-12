@@ -1,0 +1,58 @@
+<div>
+    <div class="row">
+        <div class="col-xs-11">
+            <h1>Main page</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-sm-3 col-xs-6 btn-del">
+            <button class="btn btn-danger btn-block" ng-click="deleteItems()">Delete selected</button>
+        </div>
+        <div class="col-md-2 col-sm-3 col-xs-6 btn-del">
+            <a class="btn btn-primary btn-block" href="#/create">Create item</a>
+        </div>
+    </div>
+
+
+        <div ng-repeat="item in items">
+            <div class="item">
+            <div class="row">
+                <div class="col-xs-1 col-sm-1 col-md-1">
+                    <input type="checkbox" ng-click="selectItem(item.id)">
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1">{{item.number}}</div>
+                <div class="col-xs-4 col-sm-5 col-md-5">{{item.name}}</div>
+                <div class="col-xs-2 col-sm-2 col-md-2">{{item.price | currency}}</div>
+                <div class="col-xs-1 col-sm-1 col-md-1"><a ng-href="#/edit/{{item.id}}"><img width="24px" ng-src="images/edit.png"
+                                                                           alt="Edit"></a></div>
+                <div class="col-xs-3 col-sm-2 col-md-2">
+                    <button class="btn btn-primary" ng-click="showDesc(item.number)">Details</button>
+                </div>
+
+            </div>
+            <div class="row" ng-show="showItemDesc === item.number">
+                <div class="col-xs-2">Description: </div>
+                <div class="col-xs-10">{{item.description}}</div>
+            </div>
+            </div>
+        </div>
+
+
+    <h4>Pagination</h4>
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-2 form-group">
+            <select ng-change="update()" class="form-control" ng-model="viewSettings.itemsOnPage">
+                <option selected>10</option>
+                <option>20</option>
+                <option>50</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <span ng-repeat="page in pageUrls">
+                <button class="btn" ng-class="{'btn-success': viewSettings.pageNumber === page.number}" ng-click="getItems(page.skip, viewSettings.itemsOnPage)" type="button">{{page.number}}</button>
+            </span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.remember {
+
+}
+
+p.err {
+    color: #a94442;
+}
+input.err, textarea.err {
+    border-color: #a94442;
+}
+
+p.success {
+    color: #3c763d;
+}
+
+.navbar-login {
+    font-size: 14px;
+    color: #ffffff;
+    margin-right: 10px;
+}
+
+.item {
+    border: 1px solid #3c763d;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.btn-del {
+    padding: 5px;
+}

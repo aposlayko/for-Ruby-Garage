@@ -1,0 +1,44 @@
+<div>
+    <h1>Edit item</h1>
+
+
+
+        <form novalidate name="editForm" ng-submit="submitSaveItem(editForm.$valid)">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 form-group">
+                    <input name="name" required ng-maxlength="255" ng-model="item.name" type="text" placeholder="Name" class="form-control" ng-class="{'err' : editForm.name.$invalid && !editForm.name.$pristine}">
+                </div>
+                <p ng-show="editForm.name.$error.maxlength" class="help-block err">Name is too long.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-md-4 form-group">
+                    <input name="price" required min="0" smart-float ng-model="item.price" type="number" step="0.05" placeholder="Price" class="form-control" ng-class="{'err' : editForm.price.$invalid && !editForm.price.$pristine}">
+                </div>
+                <p ng-show="editForm.price.$error.float  && !editForm.price.$pristine" class="help-block err">Wrong price format (1234.56).</p>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-md-4 form-group">
+                    <textarea name="description" rows="5" required ng-maxlength="1000" ng-model="item.description" placeholder="Description" class="form-control" ng-class="{'err' : editForm.description.$invalid && !editForm.description.$pristine}"></textarea>
+                </div>
+                <p ng-show="editForm.description.$error.maxlength" class="help-block err">Description is too long.</p>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6 col-md-4 form-group">
+                    <button ng-disabled="editForm.$invalid " type="submit" class="btn btn-success">Edit</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-md-4 form-group">
+                    <p class="err">{{err}}</p>
+                    <p class="success">{{success}}</p>
+                </div>
+            </div>
+        </form>
+
+</div>
+

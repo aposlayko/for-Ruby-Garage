@@ -1,0 +1,74 @@
+<div>
+    <h1>Edit profile</h1>
+    <form novalidate name="profileForm" ng-submit="submitProfileForm(profileForm.$vaild)">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 form-group">
+                <input name="name" type="text" placeholder="Enter your name" class="form-control" ng-maxlength="255" ng-model="editUser.name" ng-class="{'err' : profileForm.name.$invalid}">
+            </div>
+            <p ng-show="profileForm.name.$error.maxlength" class="help-block err">Last name is too long.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-4 form-group">
+                <input name="lastName" type="text" placeholder="Enter last name" class="form-control" ng-maxlength="16" ng-model="editUser.last_name"  ng-class="{'err' : profileForm.lastName.$invalid}">
+            </div>
+            <p ng-show="profileForm.lastName.$error.maxlength" class="help-block err">Last name is too long.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-4 form-group">
+                <input name="email" type="email" placeholder="Enter email" class="form-control" ng-model="editUser.email" required>
+            </div>
+            <p ng-show="profileForm.email.$invalid && !authForm.email.$pristine" class="help-block err">Uncorrected email format.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-4 form-group">
+                <input name="phone" type="text" placeholder="+380XXХХХХХХХ" ng-pattern="/^\+380[0-9]{9}$/i" class="form-control" ng-model="editUser.phone">
+            </div>
+            <p ng-show="profileForm.phone.$error.pattern" class="help-block err">Wrong phone format (+380XXXXXXXXX).</p>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-6 form-group">
+                <button ng-disabled="profileForm.$invalid" type="submit" class="btn btn-success">Save</button>
+                <button ng-click="deleteProfile()" type="button" class="btn btn-danger">Delete profile</button>
+                <button ng-click="changePassword()" type="button" class="btn btn-primary">Change password</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 form-group">
+                <p class="err">{{err}}</p>
+                <p class="success">{{success}}</p>
+            </div>
+        </div>
+    </form>
+
+
+
+    <form name="changePass" ng-show="showChangePass"  ng-submit="submitChangePass(changePass.$valid)">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 form-group">
+                <input name="password" ng-model="pass.password" type="password" placeholder="Password"
+                       class="form-control" ng-minlength="6" ng-maxlength="16" ng-pattern="/^[a-zA-Z0-9]*$/i" required ng-class="{'err' : changePass.password.$invalid && !changePass.password.$pristine}">
+            </div>
+            <p ng-show="changePass.password.$error.minlength" class="help-block err">Password is too short.</p>
+            <p ng-show="changePass.password.$error.maxlength" class="help-block err">Password is too long.</p>
+            <p ng-show="changePass.password.$error.pattern" class="help-block err">Password includes uncorrected symbols.</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-4 form-group">
+                <input ng-model="pass.repassword" type="password"  name="repassword" placeholder="Repeat password"
+                       class="form-control" required  ng-class="{'err' : user.password !== user.repassword}">
+            </div>
+            <p ng-show="pass.password !== pass.repassword" class="help-block err">Passwords do not match.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-4 form-group">
+                <button ng-disabled="changePass.$invalid || pass.password !== pass.repassword" type="submit" class="btn btn-success">Change password</button>
+            </div>
+        </div>
+    </form>
+</div>
