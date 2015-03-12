@@ -8,8 +8,8 @@ var marketApp = angular.module('taskManager', [
     'taskDirectives'
 ]);
 
-marketApp.config(['$routeProvider',
-function ($routeProvider) {
+marketApp.config(['$routeProvider', '$locationProvider',
+function ($routeProvider, $locationProvider) {
     $routeProvider.
         when('/', {
             templateUrl: 'partials/main.html',
@@ -37,4 +37,6 @@ function ($routeProvider) {
         otherwise({
             redirectTo: '/404'
         });
+
+    $locationProvider.html5Mode(true);
 }]);
