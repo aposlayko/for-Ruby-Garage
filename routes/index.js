@@ -25,7 +25,7 @@ router.post('/saveSession', function (req, res) {
 });
 
 router.get('/checkSession', function (req, res) {
-    if(req.session.user_id && req.session.email) {
+    if(req.session && req.session.user_id && req.session.email) {
         res.json({success: true, user_id: req.session.user_id, email: req.session.email});
     } else {
         res.json({success: false, error: 'There is no session'});

@@ -12,10 +12,10 @@ marketApp.config(['$routeProvider', '$locationProvider',
 function ($routeProvider, $locationProvider) {
     $routeProvider.
         when('/', {
-            templateUrl: 'partials/main.html',
-            controller: 'marketCtrl'
+            templateUrl: 'partials/task-manager.html',
+            controller: 'taskManagerCtrl'
         }).
-        /*when('/login', {
+        when('/login', {
             templateUrl: 'partials/login.html',
             controller: 'loginCtrl'
         }).
@@ -33,7 +33,7 @@ function ($routeProvider, $locationProvider) {
         }).
         when('/404', {
             templateUrl: 'partials/404.html'
-        }).*/
+        }).
         otherwise({
             redirectTo: '/404'
         });

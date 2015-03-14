@@ -2,9 +2,9 @@
 
 /* Controllers */
 
-var marketControllers = angular.module('taskControllers', []);
+var taskManagerControllers = angular.module('taskControllers', []);
 
-marketControllers.controller('mainCtrl', ['$scope', '$http', '$rootScope', '$location',
+taskManagerControllers.controller('mainCtrl', ['$scope', '$http', '$rootScope', '$location',
     function ($scope, $http, $rootScope, $location) {
         $rootScope.isAutorized = false; //change back!
         $rootScope.showAuth = false;
@@ -44,7 +44,7 @@ marketControllers.controller('mainCtrl', ['$scope', '$http', '$rootScope', '$loc
 
     }]);
 
-marketControllers.controller('marketCtrl', ['$scope', '$http', '$rootScope',
+taskManagerControllers.controller('marketCtrl', ['$scope', '$http', '$rootScope',
     function ($scope, $http, $rootScope) {
         $scope.items = [];
 
@@ -178,7 +178,7 @@ marketControllers.controller('marketCtrl', ['$scope', '$http', '$rootScope',
         }
     }]);
 
-marketControllers.controller('createCtrl', ['$scope', '$http', '$location',
+taskManagerControllers.controller('createCtrl', ['$scope', '$http', '$location',
     function ($scope, $http, $location) {
         $scope.item = {};
         $scope.err = '';
@@ -203,7 +203,7 @@ marketControllers.controller('createCtrl', ['$scope', '$http', '$location',
         };
     }]);
 
-marketControllers.controller('editCtrl', ['$scope', '$http', '$routeParams',
+taskManagerControllers.controller('editCtrl', ['$scope', '$http', '$routeParams',
     function ($scope, $http, $routeParams) {
         //console.log('Edit ' + $routeParams.itemId);
         $scope.item = {};
@@ -239,7 +239,7 @@ marketControllers.controller('editCtrl', ['$scope', '$http', '$routeParams',
         };
     }]);
 
-marketControllers.controller('editProfileCtrl', ['$scope', '$http', '$rootScope', '$location',
+taskManagerControllers.controller('editProfileCtrl', ['$scope', '$http', '$rootScope', '$location',
     function ($scope, $http, $rootScope, $location) {
         console.log('Edit profile');
         $scope.editUser = {email: $rootScope.email};
@@ -324,7 +324,7 @@ marketControllers.controller('editProfileCtrl', ['$scope', '$http', '$rootScope'
 
     }]);
 
-marketControllers.controller('loginCtrl', ['$scope', '$http', '$rootScope', '$location',
+taskManagerControllers.controller('loginCtrl', ['$scope', '$http', '$rootScope', '$location',
     function ($scope, $http, $rootScope, $location) {
         $scope.user = {
             email: '',
@@ -378,7 +378,7 @@ marketControllers.controller('loginCtrl', ['$scope', '$http', '$rootScope', '$lo
         };
     }]);
 
-marketControllers.controller('authCtrl', ['$scope', '$http', '$rootScope',
+taskManagerControllers.controller('authCtrl', ['$scope', '$http', '$rootScope',
     function ($scope, $http, $rootScope) {
         $scope.user = {};
         $scope.err = '';
@@ -409,4 +409,9 @@ marketControllers.controller('authCtrl', ['$scope', '$http', '$rootScope',
                 });
 
         };
+    }]);
+
+taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootScope',
+    function ($scope, $http, $rootScope) {
+        console.log('hello task manager!');
     }]);
