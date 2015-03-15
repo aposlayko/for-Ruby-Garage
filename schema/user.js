@@ -1,5 +1,29 @@
 var db = require('../ext/db'),
     crypto = require('crypto'),
+    Task = new db.Schema({
+        name: {
+            type: String,
+            default: 'new task'
+        },
+        dateOfDeadline: {
+            type: Date,
+            default: Date.now()
+        },
+        priority: {
+            type: Number
+        },
+        isDone: {
+            type: Boolean,
+            default: false
+        }
+    }),
+    Project = new db.Schema({
+        name: {
+            type: String,
+            default: 'new project'
+        },
+        tasks: [Task]
+    }),
     schemaUser = new db.Schema({
         email: {
             type: String,
@@ -30,6 +54,9 @@ var db = require('../ext/db'),
         created: {
             type: Date,
             default: Date.now()
+        },
+        projects: {
+            type: [Project]
         }
     });
 

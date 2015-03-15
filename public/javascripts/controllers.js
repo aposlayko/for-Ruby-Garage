@@ -8,9 +8,23 @@ taskManagerControllers.controller('mainCtrl', ['$scope', '$http', '$rootScope', 
     function ($scope, $http, $rootScope, $location) {
         $rootScope.isAutorized = false; //change back!
         $rootScope.showAuth = false;
-        $rootScope.email = '';
-        $rootScope.id = '';
+        $rootScope.email = 'qwe@rty'; //change back to empty!
+        $rootScope.id = '55054784507450b00158de68';//change back to empty!
+        $rootScope.projects = [];
 
+        $rootScope.saveUser = function () {
+            $http.post('/saveUserData', {id: $rootScope.id, projects: $rootScope.projects})
+                .success(function (data, status, headers, config) {
+                    if (data.success) {
+                        console.log("Saving user data success");
+                    } else {
+                        $scope.err = data.error;
+                    }
+                }).
+                error(function () {
+                    console.warn('Some error with saving user data');
+                });
+        };
         function checkSession () {
             $http.get('/checkSession')
                 .success(function (data, status, headers, config) {
@@ -34,6 +48,7 @@ taskManagerControllers.controller('mainCtrl', ['$scope', '$http', '$rootScope', 
             $rootScope.isAutorized = false;
             $rootScope.email = '';
             $rootScope.id = '';
+            $rootScope.projects = [];
             $http.get('/sessionDestroy');
             $location.path('/');
         };
@@ -335,12 +350,16 @@ taskManagerControllers.controller('loginCtrl', ['$scope', '$http', '$rootScope',
         $scope.submit = function () {
             $http.post('/checkUser', $scope.user).
                 success(function(data, status, headers, config) {
-                    //console.log(data);
+                    console.log(data);
                     if(data.success) {
                         $rootScope.isAutorized = true;
                         $scope.err = '';
                         $rootScope.email = data.email;
                         $rootScope.id = data.id;
+                        if(data.user.projects) {
+                            $rootScope.projects = data.user.projects;
+                        }
+
                         if ($scope.user.remember) {
                             console.log(data.id);
                             saveSession({id: data.id, email: data.email});
@@ -414,4 +433,11 @@ taskManagerControllers.controller('authCtrl', ['$scope', '$http', '$rootScope',
 taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootScope',
     function ($scope, $http, $rootScope) {
         console.log('hello task manager!');
+        //$scope.listName = '';
+
+        $scope.saveNewList = function () {
+            $rootScope.projects.push({name: $scope.listName});
+            console.log($rootScope.projects);
+            $rootScope.saveUser();
+        };
     }]);

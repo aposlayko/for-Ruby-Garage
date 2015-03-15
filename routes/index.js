@@ -50,7 +50,7 @@ router.post('/checkUser', function(req, res) {
                 res.json({success: false, error: 'Wrong password'});
                 console.log('Wrong password');
             } else {
-                res.json({success: true, error: '', id: docs[0]._id, email: docs[0].email});
+                res.json({success: true, error: '', id: docs[0]._id, email: docs[0].email, user: docs[0]});
                 //req.session.destroy(function(err) {});
             }
         } else {
@@ -76,9 +76,10 @@ router.post('/authUser', function(req, res) {
             });
 
         } else { //mogoose save errors
+            console.log(err.message);
             if (err.code == 11000) {
                 res.json({ success: false,
-                    error: 'User with this email already exists'});
+                    error: err.message});
             } else {
                 res.json({ success: false,
                     error: err});
@@ -240,6 +241,20 @@ router.post('/deleteItems', function (req, res) {
     }
 
     res.json({ success: true });
+});
+
+router.post('/saveUserData', function (req, res) {
+    var userId = req.body.id,
+        projects = req.body.projects;
+
+    User.findByIdAndUpdate(userId, {projects: projects}, null, function (err, doc) {
+        console.log(doc);
+        if (!err) {
+            res.json({ success: true });
+        } else {
+            res.json(err);
+        }
+    });
 });
 
 module.exports = router;
