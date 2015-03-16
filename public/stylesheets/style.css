@@ -47,3 +47,37 @@ p.success {
 .btn-del {
     padding: 5px;
 }
+
+/* ===== Task Manager ===== */
+.to-do-list>header {
+    background: url("../images/header-back.png") repeat-x;
+    color: #ffffff;
+    font: 14px Arial, Tahoma, sans-serif;
+    height: 48px;
+}
+.logo {
+    background: url("../images/calendar.png") no-repeat center;
+    width: 23px;
+}
+.edit-list {
+    background: url("../images/edit.png") no-repeat center;
+    width: 24px;
+    cursor: pointer;
+}
+.delete-list {
+    background: url("../images/delete.png") no-repeat center;
+    width: 20px;
+    cursor: pointer;
+}
+.to-do-list>header>* {
+    height: 100%;
+}
+.title {
+    padding-top: 17px;
+}
+.head-buttons>* {
+    height: 100%;
+}
+.head-buttons>*>* {
+    height: 100%;
+}

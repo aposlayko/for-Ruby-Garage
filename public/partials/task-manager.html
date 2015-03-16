@@ -1,15 +1,18 @@
 <div>
 
+
 <h1>Simple TODO lists</h1>
         <h3>from ruby garage</h3>
 
-        <section class="to-do-list">
-            <header>
-                <div class="logo"></div>
-                <div class="title"></div>
-                <div class="head-buttons">
-                    <div class="edit-list"></div>
-                    <div class="delete-list"></div>
+        <section ng-repeat="project in projects" class="to-do-list container">
+            <header class="row">
+                <div class="logo col-sm-1"></div>
+                <div class="title col-sm-9">{{project.name}}</div>
+                <div class="head-buttons col-sm-2">
+                    <div class="row">
+                        <div ng-click="showEditProjModal(project)" class="edit-list col-sm-6"  data-toggle="modal" data-target="#edit-proj-modal"></div>
+                        <div ng-click="deleteProject(project)" class="delete-list col-sm-6"></div>
+                    </div>
                 </div>
             </header>
 
@@ -55,6 +58,26 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" ng-disabled="!listName" data-dismiss="modal" class="btn btn-primary" ng-click="saveNewList()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="edit-proj-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Enter new name</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Enter name" ng-model="editedProject.name">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" ng-disabled="!editedProject.name" data-dismiss="modal" class="btn btn-primary" ng-click="editProject()">Save</button>
                 </div>
             </div>
         </div>

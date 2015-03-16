@@ -432,12 +432,27 @@ taskManagerControllers.controller('authCtrl', ['$scope', '$http', '$rootScope',
 
 taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootScope',
     function ($scope, $http, $rootScope) {
-        console.log('hello task manager!');
-        //$scope.listName = '';
 
         $scope.saveNewList = function () {
             $rootScope.projects.push({name: $scope.listName});
-            console.log($rootScope.projects);
+            $scope.listName = '';
+            $rootScope.saveUser();
+            $('#create-proj-modal').modal('hide');
+        };
+
+        $scope.showEditProjModal = function (project) {
+            $scope.editedProject = project;
+        };
+
+        $scope.editProject = function () {
+            $rootScope.projects[$rootScope.projects.indexOf($scope.editedProject)].name = $scope.editedProject.name;
+            $scope.editedProject = '';
+            $rootScope.saveUser();
+            $('#edit-proj-modal').modal('hide');
+        };
+
+        $scope.deleteProject = function (project) {
+            $rootScope.projects.splice($rootScope.projects.indexOf(project), 1);
             $rootScope.saveUser();
         };
     }]);
