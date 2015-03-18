@@ -16,19 +16,25 @@
                 </div>
             </header>
 
-            <div class="new-task-panel">
-                <div class="add-task-logo"></div>
-                <div class="new-task-name"></div>
-                <div class="add-task-btn"></div>
+            <div class="new-task-panel row">
+                <div class="add-task-logo col-sm-1"></div>
+                <div class="new-task-name col-sm-9">
+                    <input type="text" ng-model="taskName" placeholder="Start typing here to create task...">
+                </div>
+                <div class="add-task-btn col-sm-2">
+                    <button ng-disabled="!taskName" ng-click="saveTask(project)">Add Task</button>
+                </div>
             </div>
 
             <div class="tasks-container">
-                <div class="task-item">
-                    <div class="done">
-                        //checkbox
+                <div class="task-item row" ng-repeat="task in project.tasks">
+                    <div class="done col-sm-1">
+                        <input type="checkbox">
                     </div>
-                    <div class="task-name"></div>
-                    <div class="task-buttons">
+                    <div class="task-name col-sm-9">
+                        {{task.name}}
+                    </div>
+                    <div class="task-buttons col-sm-2">
                         <div class="up"></div>
                         <div class="down"></div>
                         <div class="glyphicon-ban-circle"></div>

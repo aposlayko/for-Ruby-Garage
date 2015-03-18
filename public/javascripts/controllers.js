@@ -455,4 +455,29 @@ taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootS
             $rootScope.projects.splice($rootScope.projects.indexOf(project), 1);
             $rootScope.saveUser();
         };
+
+        $scope.saveTask = function (project) {
+            console.log('save task');
+            project.tasks.push({  //save to $rootScope.projects
+                name: $scope.taskName,
+                priority: getDefaultPriority(project.tasks)
+            });
+            $rootScope.saveUser();
+            $scope.taskName = '';
+        };
+
+        function getDefaultPriority (tasks) {
+            var length = tasks.length,
+                prArr = [],
+                max = 0,
+                i = 0;
+            if (!length) {
+                for (i; i < length; i++) {
+                    prArr.push(tasks[i].priority);
+                }
+                max = Math.max.apply(Math, prArr);
+                max++;
+            }
+            return max;
+        }
     }]);
