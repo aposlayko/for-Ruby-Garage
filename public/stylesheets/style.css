@@ -54,10 +54,34 @@ p.success {
     color: #ffffff;
     font: 14px Arial, Tahoma, sans-serif;
     height: 48px;
+    border: 1px solid #315588;
 }
 .logo {
     background: url("../images/calendar.png") no-repeat center;
     width: 23px;
+}
+.new-task-panel {
+    height: 48px;
+    background: linear-gradient(to top, #CBCBCB, #E0E0E0);
+    border-left: 1px solid #A9A9A9;
+    border-right: 1px solid #A9A9A9;
+    border-bottom: 1px solid #A9A9A9;
+}
+/*.tasks-container {
+    border-left: 1px solid #A9A9A9;
+    border-right: 1px solid #A9A9A9;
+    border-bottom: 1px solid #A9A9A9;
+}*/
+.task-item {
+    border-left: 1px solid #A9A9A9;
+    border-right: 1px solid #A9A9A9;
+    border-bottom: 1px solid #E6EAE9;
+    height: 48px;
+    background: #ffffff;
+}
+.task-item:last-child {
+    border-bottom: 1px solid #A9A9A9;
+    border-radius: 0 0 15px 15px;
 }
 .edit-list {
     background: url("../images/edit.png") no-repeat center;
@@ -80,4 +104,28 @@ p.success {
 }
 .head-buttons>*>* {
     height: 100%;
+}
+.up {
+    background: url("../images/up.png") no-repeat;
+    width: 18px;
+    height: 20px;
+    cursor: pointer;
+}
+.down {
+    background: url("../images/down.png") no-repeat;
+    width: 18px;
+    height: 20px;
+    cursor: pointer;
+}
+.edit-task {
+    background: url("../images/edit.png") no-repeat;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+.del-task {
+    background: url("../images/delete.png") no-repeat;
+    width: 20px;
+    height: 28px;
+    cursor: pointer;
 }

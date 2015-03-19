@@ -432,7 +432,6 @@ taskManagerControllers.controller('authCtrl', ['$scope', '$http', '$rootScope',
 
 taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootScope',
     function ($scope, $http, $rootScope) {
-
         $scope.saveNewList = function () {
             $rootScope.projects.push({name: $scope.listName});
             $scope.listName = '';
@@ -456,14 +455,15 @@ taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootS
             $rootScope.saveUser();
         };
 
-        $scope.saveTask = function (project) {
+        $scope.saveTask = function (project, taskName) {
             console.log('save task');
+            if (!project.tasks) project.tasks = [];
             project.tasks.push({  //save to $rootScope.projects
-                name: $scope.taskName,
+                name: taskName,
                 priority: getDefaultPriority(project.tasks)
             });
             $rootScope.saveUser();
-            $scope.taskName = '';
+            taskName = ''; //удаление после ввода
         };
 
         function getDefaultPriority (tasks) {
