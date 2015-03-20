@@ -5,7 +5,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('pages/index', { title: 'Express' });
+    res.render('pages/index', { title: 'Task manager' });
 });
 
 router.post('/saveSession', function (req, res) {

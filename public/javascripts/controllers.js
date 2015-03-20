@@ -443,11 +443,24 @@ taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootS
             $scope.editedProject = project;
         };
 
+        $scope.showEditTaskModal = function (task, project) {
+            $scope.editedTask = task;
+            $scope.taskProject = project;
+        };
+
         $scope.editProject = function () {
             $rootScope.projects[$rootScope.projects.indexOf($scope.editedProject)].name = $scope.editedProject.name;
             $scope.editedProject = '';
             $rootScope.saveUser();
             $('#edit-proj-modal').modal('hide');
+        };
+
+        $scope.editTask = function () {
+            //console.log($scope.editedTask.name + ' of ' + JSON.stringify($scope.taskProject));
+            var proj = $rootScope.projects[$rootScope.projects.indexOf($scope.taskProject)],
+                task = proj.tasks[proj.indexOf($scope.editedTask)];
+
+            task.name = $scope.editedTask.name;
         };
 
         $scope.deleteProject = function (project) {
