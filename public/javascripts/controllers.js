@@ -6,10 +6,10 @@ var taskManagerControllers = angular.module('taskControllers', []);
 
 taskManagerControllers.controller('mainCtrl', ['$scope', '$http', '$rootScope', '$location',
     function ($scope, $http, $rootScope, $location) {
-        $rootScope.isAutorized = false; //change back!
+        $rootScope.isAutorized = false; //change back to false!
         $rootScope.showAuth = false;
-        $rootScope.email = 'qwe@rty'; //change back to empty!
-        $rootScope.id = '55054784507450b00158de68';//change back to empty!
+        $rootScope.email = '';
+        $rootScope.id = '';
         $rootScope.projects = [];
 
         $rootScope.saveUser = function () {
@@ -432,6 +432,8 @@ taskManagerControllers.controller('authCtrl', ['$scope', '$http', '$rootScope',
 
 taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootScope',
     function ($scope, $http, $rootScope) {
+        $( "#datepicker" ).datepicker();
+
         $scope.saveNewList = function () {
             $rootScope.projects.push({name: $scope.listName});
             $scope.listName = '';
@@ -441,26 +443,29 @@ taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootS
 
         $scope.showEditProjModal = function (project) {
             $scope.editedProject = project;
-        };
-
-        $scope.showEditTaskModal = function (task, project) {
-            $scope.editedTask = task;
-            $scope.taskProject = project;
+            $scope.editedProjectName = project.name;
         };
 
         $scope.editProject = function () {
-            $rootScope.projects[$rootScope.projects.indexOf($scope.editedProject)].name = $scope.editedProject.name;
-            $scope.editedProject = '';
+            $scope.editedProject.name = $scope.editedProjectName;
             $rootScope.saveUser();
+            $scope.editedProjectName = '';
             $('#edit-proj-modal').modal('hide');
         };
 
-        $scope.editTask = function () {
-            //console.log($scope.editedTask.name + ' of ' + JSON.stringify($scope.taskProject));
-            var proj = $rootScope.projects[$rootScope.projects.indexOf($scope.taskProject)],
-                task = proj.tasks[proj.indexOf($scope.editedTask)];
+        $scope.showEditTaskModal = function (task) {
+            console.log(Date.parse(task.dateOfDeadline));
+            $scope.editedTaskDate = task.dateOfDeadline;
+            $scope.editedTaskName = task.name;
+            $scope.editedTask = task;
+        };
 
-            task.name = $scope.editedTask.name;
+        $scope.editTask = function () {
+            $scope.editedTask.name = $scope.editedTaskName;
+            $scope.editedTask.dateOfDeadline = $scope.dateOfDeadline;
+            $rootScope.saveUser();
+            $scope.editedTaskName = '';
+            $('#edit-task-modal').modal('hide');
         };
 
         $scope.deleteProject = function (project) {
@@ -469,14 +474,48 @@ taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootS
         };
 
         $scope.saveTask = function (project, taskName) {
-            console.log('save task');
             if (!project.tasks) project.tasks = [];
             project.tasks.push({  //save to $rootScope.projects
                 name: taskName,
                 priority: getDefaultPriority(project.tasks)
             });
             $rootScope.saveUser();
-            taskName = ''; //удаление после ввода
+            $('#new-task-input').val('');
+        };
+
+        $scope.deleteTask = function (task, project) {
+            project.tasks.splice(project.tasks.indexOf(task), 1);
+            $rootScope.saveUser();
+        };
+
+        $scope.changePriority = function(isMorePriority, project, task) {
+            var taskIndex,
+                priority;
+
+            project.tasks.sort(sortTasks);
+            taskIndex = project.tasks.indexOf(task);
+
+            function sortTasks (a, b) {
+                if (a.priority < b.priority) return -1;
+                if (a.priority > b.priority) return 1;
+                return 0;
+            }
+
+            if (isMorePriority) {
+                if (taskIndex !== 0) {
+                    priority = task.priority;
+                    task.priority = project.tasks[taskIndex - 1].priority;
+                    project.tasks[taskIndex - 1].priority = priority;
+                    $rootScope.saveUser();
+                }
+            } else {
+                if (taskIndex !== project.tasks.length - 1) {
+                    priority = task.priority;
+                    task.priority = project.tasks[taskIndex + 1].priority;
+                    project.tasks[taskIndex + 1].priority = priority;
+                    $rootScope.saveUser();
+                }
+            }
         };
 
         function getDefaultPriority (tasks) {
@@ -484,7 +523,7 @@ taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootS
                 prArr = [],
                 max = 0,
                 i = 0;
-            if (!length) {
+            if (length) {
                 for (i; i < length; i++) {
                     prArr.push(tasks[i].priority);
                 }

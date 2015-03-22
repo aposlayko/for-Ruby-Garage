@@ -49,6 +49,13 @@ p.success {
 }
 
 /* ===== Task Manager ===== */
+.task-manager-conteiner {
+    text-align: center;
+}
+.to-do-list {
+    text-align: left;
+    margin-bottom: 35px;
+}
 .to-do-list>header {
     background: url("../images/header-back.png") repeat-x;
     color: #ffffff;
@@ -67,29 +74,63 @@ p.success {
     border-right: 1px solid #A9A9A9;
     border-bottom: 1px solid #A9A9A9;
 }
-/*.tasks-container {
-    border-left: 1px solid #A9A9A9;
-    border-right: 1px solid #A9A9A9;
-    border-bottom: 1px solid #A9A9A9;
-}*/
+.add-task-logo {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.new-task-name {
+    display: inline-block;
+    vertical-align: middle;
+}
+.add-task-btn {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .task-item {
     border-left: 1px solid #A9A9A9;
     border-right: 1px solid #A9A9A9;
     border-bottom: 1px solid #E6EAE9;
-    height: 48px;
     background: #ffffff;
+}
+.task-item>* {
+    height: 100%;
+    padding-top: 10px;
 }
 .task-item:last-child {
     border-bottom: 1px solid #A9A9A9;
     border-radius: 0 0 15px 15px;
 }
+.task-item:hover {
+    background-color: #FAFCD4;
+}
+.done {
+    position: relative;
+    text-align: center;
+}
+.double-line {
+    position: absolute;
+    left: -3px;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    border-right: 1px double #EDD9DE;
+    border-left: 1px double #EDD9DE;
+}
+.task-name {
+    padding: 10px 0 10px 0;
+    min-height: 28px;
+    /*border-left: 1px double #EDD9DE;*/
+    border-right: 1px solid #E6EAE9;
+}
 .edit-list {
-    background: url("../images/edit.png") no-repeat center;
+    background: url("../images/edit-proj.png") no-repeat center;
     width: 24px;
     cursor: pointer;
 }
 .delete-list {
-    background: url("../images/delete.png") no-repeat center;
+    background: url("../images/delete-proj.png") no-repeat center;
     width: 20px;
     cursor: pointer;
 }
@@ -97,7 +138,8 @@ p.success {
     height: 100%;
 }
 .title {
-    padding-top: 17px;
+    padding-top: 14px;
+    font-size: 18px;
 }
 .head-buttons>* {
     height: 100%;
@@ -105,27 +147,61 @@ p.success {
 .head-buttons>*>* {
     height: 100%;
 }
+
 .up {
-    background: url("../images/up.png") no-repeat;
+    background: url("../images/up.png") no-repeat center;
     width: 18px;
     height: 20px;
     cursor: pointer;
 }
 .down {
-    background: url("../images/down.png") no-repeat;
+    background: url("../images/down.png") no-repeat center;
     width: 18px;
     height: 20px;
     cursor: pointer;
 }
 .edit-task {
-    background: url("../images/edit.png") no-repeat;
+    background: url("../images/edit.png") no-repeat center;
     width: 24px;
     height: 24px;
     cursor: pointer;
 }
 .del-task {
-    background: url("../images/delete.png") no-repeat;
+    background: url("../images/delete.png") no-repeat center;
     width: 20px;
     height: 28px;
     cursor: pointer;
+}
+.strike {
+    text-decoration: line-through;
+}
+.wrap-btn {
+    display: inline-block;
+    width: 210px;
+    height: 45px;
+    background: url("../images/header-back.png") repeat-x;
+    border: 1px solid #315589;
+    border-radius: 3px;
+    margin: 11px 0 20px 0;
+}
+.add-proj-btn {
+    width: 100%;
+    height: 100%;
+    padding: 0 0 3px 0;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font: 20px "Calibri", Arial, sans-serif;
+    font-weight: 900;
+    text-shadow: #000000;
+}
+.task-manager-conteiner>h1 {
+    margin: 45px 0 0 0;
+}
+.task-manager-conteiner>h3 {
+    margin: 10px 0 55px 0;
+}
+.task-manager-conteiner>h6 {
+    color: #ffffff;
+    font-size: 15px;
 }

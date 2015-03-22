@@ -1,45 +1,46 @@
-<div>
-
+<div class="task-manager-conteiner">
 
 <h1>Simple TODO lists</h1>
         <h3>from ruby garage</h3>
 
         <section ng-repeat="project in projects" class="to-do-list container">
             <header class="row">
-                <div class="logo col-sm-1"></div>
-                <div class="title col-sm-9">{{project.name}}</div>
-                <div class="head-buttons col-sm-2">
+                <div class="logo col-xs-1"></div>
+                <div class="title col-xs-9">{{project.name}}</div>
+                <div class="head-buttons col-xs-2">
                     <div class="row">
-                        <div ng-click="showEditProjModal(project)" class="edit-list col-sm-6"  data-toggle="modal" data-target="#edit-proj-modal"></div>
-                        <div ng-click="deleteProject(project)" class="delete-list col-sm-6"></div>
+                        <div ng-click="showEditProjModal(project)" class="edit-list col-xs-6"  data-toggle="modal" data-target="#edit-proj-modal"></div>
+                        <div ng-click="deleteProject(project)" class="delete-list col-xs-6"></div>
                     </div>
                 </div>
             </header>
 
             <div class="new-task-panel row">
-                <div class="add-task-logo col-sm-1"></div>
-                <div class="new-task-name col-sm-8">
-                    <input class="form-control" type="text" ng-model="taskName" placeholder="Start typing here to create task...">
+                <div class="add-task-logo col-xs-1"></div>
+                <div class="new-task-name col-xs-8">
+                    <input id="new-task-input" class="form-control" type="text" ng-model="taskName" placeholder="Start typing here to create task...">
                 </div>
-                <div class="add-task-btn col-sm-3">
+                <div class="add-task-btn col-xs-3">
                     <button ng-disabled="!taskName" ng-click="saveTask(project, taskName)">Add Task</button>
                 </div>
             </div>
 
             <div class="tasks-container">
-                <div class="task-item row" ng-repeat="task in project.tasks">
-                    <div class="done col-sm-1">
-                        <input type="checkbox">
+                <div class="task-item row" ng-repeat="task in project.tasks| orderBy:'priority'">
+                    <div class="done col-xs-1">
+                        <input type="checkbox" ng-checked="task.isDone" ng-model="task.isDone" ng-change="saveUser()">
+
                     </div>
-                    <div class="task-name col-sm-8">
+                    <div class="task-name col-xs-8" ng-class="{strike: task.isDone}">
+                        <div class="double-line"></div>
                         {{task.name}}
                     </div>
-                    <div class="task-buttons col-sm-3">
+                    <div class="task-buttons col-xs-3">
                         <div class="row">
-                            <div class="up col-sm-3"></div>
-                            <div class="down col-sm-3"></div>
-                            <div ng-click="showEditTaskModal(task, project)" class="edit-task col-sm-3" data-toggle="modal" data-target="#edit-task-modal"></div>
-                            <div class="del-task col-sm-3"></div>
+                            <div ng-click="changePriority(true, project, task)" class="up col-xs-3"></div>
+                            <div ng-click="changePriority(false, project, task)" class="down col-xs-3"></div>
+                            <div ng-click="showEditTaskModal(task)" class="edit-task col-xs-3" data-toggle="modal" data-target="#edit-task-modal"></div>
+                            <div ng-click="deleteTask(task, project)" class="del-task col-xs-3"></div>
                         </div>
                     </div>
                 </div>
@@ -47,7 +48,9 @@
 
         </section>
 
-    <button data-toggle="modal" data-target="#create-proj-modal">Add TODO List</button>
+    <div class="wrap-btn">
+        <button class="add-proj-btn" data-toggle="modal" data-target="#create-proj-modal">Add TODO List</button>
+    </div>
 <h6>©Ruby Garage</h6>
 
 
@@ -81,12 +84,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Enter name" ng-model="editedProject.name">
+                        <input class="form-control" ng-model="editedProjectName" type="text" placeholder="Enter name">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" ng-disabled="!editedProject.name" data-dismiss="modal" class="btn btn-primary" ng-click="editProject()">Save</button>
+                    <button type="button" ng-disabled="!editedProjectName" data-dismiss="modal" class="btn btn-primary" ng-click="editProject()">Save</button>
                 </div>
             </div>
         </div>
@@ -101,12 +104,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Enter name" ng-model="editedTask.name">
+                        <input class="form-control" ng-model="editedTaskName" type="text" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <input id="datepicker" ng-model="editedTaskDate" class="form-control" type="text" placeholder="Enter date">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" ng-disabled="!editedTask.name" data-dismiss="modal" class="btn btn-primary" ng-click="editTask()">Save</button>
+                    <button id="saveTaskButton" type="button" ng-disabled="!editedTaskName" data-dismiss="modal" class="btn btn-primary" ng-click="editTask()">Save</button>
                 </div>
             </div>
         </div>
