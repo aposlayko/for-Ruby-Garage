@@ -64,8 +64,9 @@ p.success {
     border: 1px solid #315588;
 }
 .logo {
-    background: url("../images/calendar.png") no-repeat center;
-    width: 23px;
+    background: url("../images/calendar_sm.png") no-repeat center;
+    width: 25px;
+    height: 25px;
 }
 .new-task-panel {
     height: 48px;
@@ -74,18 +75,19 @@ p.success {
     border-right: 1px solid #A9A9A9;
     border-bottom: 1px solid #A9A9A9;
 }
+
 .add-task-logo {
+    background: url("../images/plus.png") no-repeat center;
     display: inline-block;
     height: 100%;
     vertical-align: middle;
 }
 .new-task-name {
     display: inline-block;
-    vertical-align: middle;
+    padding-top: 6px;
 }
-.add-task-btn {
-    display: inline-block;
-    vertical-align: middle;
+.new-task-panel .add-task-btn {
+    color: #ffffff;
 }
 
 .task-item {
@@ -121,16 +123,16 @@ p.success {
 .task-name {
     padding: 10px 0 10px 0;
     min-height: 28px;
-    /*border-left: 1px double #EDD9DE;*/
+    color: #999999;
     border-right: 1px solid #E6EAE9;
 }
 .edit-list {
-    background: url("../images/edit-proj.png") no-repeat center;
+    background: url("../images/blue_edit.png") no-repeat center;
     width: 24px;
     cursor: pointer;
 }
 .delete-list {
-    background: url("../images/delete-proj.png") no-repeat center;
+    background: url("../images/blue_del.png") no-repeat center;
     width: 20px;
     cursor: pointer;
 }
@@ -149,25 +151,25 @@ p.success {
 }
 
 .up {
-    background: url("../images/up.png") no-repeat center;
+    background: url("../images/up_sm.png") no-repeat center;
     width: 18px;
     height: 20px;
     cursor: pointer;
 }
 .down {
-    background: url("../images/down.png") no-repeat center;
+    background: url("../images/down_sm.png") no-repeat center;
     width: 18px;
     height: 20px;
     cursor: pointer;
 }
 .edit-task {
-    background: url("../images/edit.png") no-repeat center;
+    background: url("../images/edit_sm.png") no-repeat center;
     width: 24px;
     height: 24px;
     cursor: pointer;
 }
 .del-task {
-    background: url("../images/delete.png") no-repeat center;
+    background: url("../images/del_sm.png") no-repeat center;
     width: 20px;
     height: 28px;
     cursor: pointer;

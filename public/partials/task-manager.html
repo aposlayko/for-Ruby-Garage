@@ -17,16 +17,19 @@
 
             <div class="new-task-panel row">
                 <div class="add-task-logo col-xs-1"></div>
-                <div class="new-task-name col-xs-8">
-                    <input id="new-task-input" class="form-control" type="text" ng-model="taskName" placeholder="Start typing here to create task...">
+                <div class="new-task-name col-xs-10">
+                    <div class="input-group">
+                        <input class="form-control new-task-input" type="text" ng-model="taskName" placeholder="Start typing here to create task...">
+                        <div class="input-group-addon btn btn-success add-task-btn" ng-disabled="!taskName" ng-click="saveTask(project, taskName)">Add Task</div>
+                    </div>
                 </div>
-                <div class="add-task-btn col-xs-3">
+                <!--<div class="add-task-btn col-xs-3">
                     <button ng-disabled="!taskName" ng-click="saveTask(project, taskName)">Add Task</button>
-                </div>
+                </div>-->
             </div>
 
             <div class="tasks-container">
-                <div class="task-item row" ng-repeat="task in project.tasks| orderBy:'priority'">
+                <div class="task-item row" ng-repeat="task in project.tasks| orderBy:'priority'" ng-mouseover="isSelected = true" ng-mouseleave="isSelected = false" ng-init="isSelected=false">
                     <div class="done col-xs-1">
                         <input type="checkbox" ng-checked="task.isDone" ng-model="task.isDone" ng-change="saveUser()">
 
@@ -35,7 +38,7 @@
                         <div class="double-line"></div>
                         {{task.name}}
                     </div>
-                    <div class="task-buttons col-xs-3">
+                    <div class="task-buttons col-xs-3" ng-show="isSelected">
                         <div class="row">
                             <div ng-click="changePriority(true, project, task)" class="up col-xs-3"></div>
                             <div ng-click="changePriority(false, project, task)" class="down col-xs-3"></div>

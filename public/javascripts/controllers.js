@@ -432,7 +432,12 @@ taskManagerControllers.controller('authCtrl', ['$scope', '$http', '$rootScope',
 
 taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootScope',
     function ($scope, $http, $rootScope) {
-        $( "#datepicker" ).datepicker();
+        $("#datepicker").datepicker({
+            dateFormat: "dd-mm-yy",
+            onSelect: function () {
+                $scope.dateFromDatapicker = $(this).datepicker('getDate');
+            }
+        });
 
         $scope.saveNewList = function () {
             $rootScope.projects.push({name: $scope.listName});
@@ -454,15 +459,20 @@ taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootS
         };
 
         $scope.showEditTaskModal = function (task) {
-            console.log(Date.parse(task.dateOfDeadline));
-            $scope.editedTaskDate = task.dateOfDeadline;
+            var date = new Date(Date.parse(task.dateOfDeadline));
+            $( "#datepicker" ).datepicker("setDate" , date);
+
             $scope.editedTaskName = task.name;
             $scope.editedTask = task;
         };
 
         $scope.editTask = function () {
             $scope.editedTask.name = $scope.editedTaskName;
-            $scope.editedTask.dateOfDeadline = $scope.dateOfDeadline;
+            if ($scope.dateFromDatapicker) {
+                $scope.editedTask.dateOfDeadline = $scope.dateFromDatapicker.toISOString();
+                $scope.dateFromDatapicker = null;
+            }
+
             $rootScope.saveUser();
             $scope.editedTaskName = '';
             $('#edit-task-modal').modal('hide');
@@ -477,10 +487,12 @@ taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootS
             if (!project.tasks) project.tasks = [];
             project.tasks.push({  //save to $rootScope.projects
                 name: taskName,
-                priority: getDefaultPriority(project.tasks)
+                priority: getDefaultPriority(project.tasks),
+                dateOfDeadline: (new Date()).toISOString()
             });
             $rootScope.saveUser();
-            $('#new-task-input').val('');
+            $('.new-task-input').val('');
+            $scope.taskName = '';
         };
 
         $scope.deleteTask = function (task, project) {
