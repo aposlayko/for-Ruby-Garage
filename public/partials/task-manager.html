@@ -23,9 +23,6 @@
                         <div class="input-group-addon btn btn-success add-task-btn" ng-disabled="!taskName" ng-click="saveTask(project, taskName)">Add Task</div>
                     </div>
                 </div>
-                <!--<div class="add-task-btn col-xs-3">
-                    <button ng-disabled="!taskName" ng-click="saveTask(project, taskName)">Add Task</button>
-                </div>-->
             </div>
 
             <div class="tasks-container">
@@ -34,7 +31,7 @@
                         <input type="checkbox" ng-checked="task.isDone" ng-model="task.isDone" ng-change="saveUser()">
 
                     </div>
-                    <div class="task-name col-xs-8" ng-class="{strike: task.isDone}">
+                    <div class="task-name col-xs-8" ng-class="{strike: task.isDone, warning: checkDeadline(task.dateOfDeadline) && !task.isDone}">
                         <div class="double-line"></div>
                         {{task.name}}
                     </div>

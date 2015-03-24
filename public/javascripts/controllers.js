@@ -432,12 +432,19 @@ taskManagerControllers.controller('authCtrl', ['$scope', '$http', '$rootScope',
 
 taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootScope',
     function ($scope, $http, $rootScope) {
+        var dateToday = new Date();
         $("#datepicker").datepicker({
             dateFormat: "dd-mm-yy",
+            /*minDate: dateToday,*/
             onSelect: function () {
                 $scope.dateFromDatapicker = $(this).datepicker('getDate');
             }
         });
+        $scope.dates = [];
+
+        $scope.checkDeadline = function (date) {
+            return Date.parse(date) < Date.now();
+        };
 
         $scope.saveNewList = function () {
             $rootScope.projects.push({name: $scope.listName});
@@ -484,11 +491,12 @@ taskManagerControllers.controller('taskManagerCtrl', ['$scope', '$http', '$rootS
         };
 
         $scope.saveTask = function (project, taskName) {
+            var day = 86400000;
             if (!project.tasks) project.tasks = [];
             project.tasks.push({  //save to $rootScope.projects
                 name: taskName,
                 priority: getDefaultPriority(project.tasks),
-                dateOfDeadline: (new Date()).toISOString()
+                dateOfDeadline: (new Date(Date.now() + day)).toISOString()
             });
             $rootScope.saveUser();
             $('.new-task-input').val('');

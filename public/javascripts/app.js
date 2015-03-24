@@ -5,7 +5,8 @@
 var marketApp = angular.module('taskManager', [
     'ngRoute',
     'taskControllers',
-    'taskDirectives'
+    'taskDirectives',
+    'taskFilters'
 ]);
 
 marketApp.config(['$routeProvider', '$locationProvider',
