@@ -20,14 +20,6 @@ function ($routeProvider, $locationProvider) {
             templateUrl: 'partials/login.html',
             controller: 'loginCtrl'
         }).
-        when('/create', {
-            templateUrl: 'partials/create.html',
-            controller: 'createCtrl'
-        }).
-        when('/edit/:itemId', {
-            templateUrl: 'partials/edit.html',
-            controller: 'editCtrl'
-        }).
         when('/edit-profile', {
             templateUrl: 'partials/edit-profile.html',
             controller: 'editProfileCtrl'
